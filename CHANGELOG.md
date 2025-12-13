@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v1.0.9
+
+[compare changes](https://github.com/selemondev/shiki-code-block/compare/v1.0.8...v1.0.9)
+
+### 🩹 Fixes
+
+- **vue:** Use getter in watch to prevent SSR warning ([16d6286](https://github.com/selemondev/shiki-code-block/commit/16d6286))
+
+### 🏡 Chore
+
+- Remove redundant pkg file ([ec817ab](https://github.com/selemondev/shiki-code-block/commit/ec817ab))
+- Update dependencies ([25a50b9](https://github.com/selemondev/shiki-code-block/commit/25a50b9))
+- Release v1.0.6 ([7526396](https://github.com/selemondev/shiki-code-block/commit/7526396))
+- Accept vite v6 ([574f5b6](https://github.com/selemondev/shiki-code-block/commit/574f5b6))
+- Release v1.0.7 ([bf11db6](https://github.com/selemondev/shiki-code-block/commit/bf11db6))
+
+### ❤️ Contributors
+
+- Selemondev <selemondev19@gmail.com>
+- Cwandev <18888351756@163.com>
+
 ## v1.0.8
 
 [compare changes](https://github.com/selemondev/shiki-code-block/compare/v1.0.7...v1.0.8)
