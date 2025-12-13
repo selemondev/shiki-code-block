@@ -15,7 +15,7 @@ const props = defineProps<{
 
 const codeToHtml = ref("");
 watch(
-	props,
+	() => props,
 	async (val: {
 		code: string;
 		lang: BundledLanguage;
