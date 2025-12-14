@@ -3,13 +3,15 @@ import type { BuiltinTheme, BundledLanguage, ShikiTransformer } from "shiki";
 import { ref, watch } from "vue";
 import { convertCodeToHtml } from "@/lib/utils/codeToHtml";
 
+export interface Themes {
+  [key: string]: BuiltinTheme
+}
 const props = defineProps<{
 	code: string;
 	lang: BundledLanguage;
-	theme: {
-		light: BuiltinTheme;
-		dark?: BuiltinTheme;
-	};
+	theme: Themes;
+    defaultColor?: string;
+    cssVariablePrefix?: string;
 	transformers?: ShikiTransformer[];
 }>();
 
@@ -19,15 +21,19 @@ watch(
 	async (val: {
 		code: string;
 		lang: BundledLanguage;
-		theme: { light: BuiltinTheme; dark?: BuiltinTheme };
+		theme: Themes;
+        defaultColor?: string;
+        cssVariablePrefix?: string;
 		transformers?: ShikiTransformer[];
 	}) => {
 		if (val) {
 			codeToHtml.value = await convertCodeToHtml(
 				val.code?.trim(),
 				val.lang,
-				{ light: val.theme.light, dark: val.theme.dark || "vitesse-dark" },
+				val.theme,
 				val.transformers || [],
+				val.defaultColor,
+				val.cssVariablePrefix
 			);
 
 			return codeToHtml.value;

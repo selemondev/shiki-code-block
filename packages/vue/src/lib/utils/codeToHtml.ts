@@ -4,19 +4,20 @@ import {
 	codeToHtml,
 	type ShikiTransformer,
 } from "shiki";
-
+import type { Themes } from "@/components/CodeBlock.vue";
 export async function convertCodeToHtml(
 	code: string,
 	lang: BundledLanguage,
-	theme: { light: BuiltinTheme; dark: BuiltinTheme },
+	theme: Themes,
 	transformers?: ShikiTransformer[],
+	defaultColor?: string,
+	cssVariablePrefix?: string
 ) {
 	return await codeToHtml(code, {
 		lang,
-		themes: {
-			light: theme.light,
-			dark: theme.dark,
-		},
+		themes: theme,
 		transformers,
+		defaultColor,
+		cssVariablePrefix
 	});
 }
