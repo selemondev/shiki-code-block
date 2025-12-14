@@ -1,6 +1,21 @@
 # Changelog
 
 
+## v1.0.10
+
+[compare changes](https://github.com/selemondev/shiki-code-block/compare/v1.0.9...v1.0.10)
+
+### 🏡 Chore
+
+- Remove minify option ([54fd484](https://github.com/selemondev/shiki-code-block/commit/54fd484))
+- Update tsdown ([12dce19](https://github.com/selemondev/shiki-code-block/commit/12dce19))
+- Release v1.0.8 ([fd2f56b](https://github.com/selemondev/shiki-code-block/commit/fd2f56b))
+- Update scripts ([cd07fd6](https://github.com/selemondev/shiki-code-block/commit/cd07fd6))
+
+### ❤️ Contributors
+
+- Selemondev <selemondev19@gmail.com>
+
 ## v1.0.9
 
 [compare changes](https://github.com/selemondev/shiki-code-block/compare/v1.0.8...v1.0.9)

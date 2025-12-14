@@ -1,7 +1,7 @@
 {
   "name": "@shiki/block",
   "type": "module",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "packageManager": "pnpm@9.15.9",
   "description": "A Shiki based Code Block Component ✨",
   "author": "Selemondev",
