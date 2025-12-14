@@ -34,21 +34,21 @@
   },
   "peerDependencies": {
     "@vue/tsconfig": "^0.7.0 || ^0.8.1",
+    "vite": "^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0",
     "vue": "^3",
-    "vue-tsc": "^2.2.0 || ^3.0.6",
-    "vite": "^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0" 
+    "vue-tsc": "^2.2.0 || ^3.0.6"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/tsconfig": "^0.8.1",
     "shiki": "^3.12.2",
-    "tsdown": "^0.15.0",
+    "tsdown": "^0.17.3",
     "unplugin-vue": "^7.0.1",
-    "vue-tsc": "^3.0.6"
+    "vue-tsc": "^3.1.8"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
-  "types": "./dist/index-CAs8iha0.d.ts",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
     "./package.json": "./package.json"
