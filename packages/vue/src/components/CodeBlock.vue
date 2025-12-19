@@ -9,15 +9,22 @@ type Options = ConvertOptions & {
 	cssVariablePrefix?: string;
 	transformers?: ShikiTransformer[];
 };
-const props = defineProps<{
+type BaseProps = {
 	code: string;
 	lang: BundledLanguage;
-	theme?: BuiltinTheme;
-	themes?: Themes;
 	defaultColor?: string;
 	cssVariablePrefix?: string;
 	transformers?: ShikiTransformer[];
-}>();
+};
+type SingleThemeProps = BaseProps & {
+	theme: BuiltinTheme;
+	themes?: never;
+};
+type MultiThemeProps = BaseProps & {
+	themes: Themes;
+	theme?: never;
+};
+const props = defineProps<SingleThemeProps | MultiThemeProps>();
 
 const codeToHtml = ref("");
 
