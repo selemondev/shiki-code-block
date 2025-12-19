@@ -61,6 +61,6 @@ watch(
 			options,
 		);
 	},
-	{ immediate: true },
+	{ immediate: true, deep: true },
 );
 </script>
