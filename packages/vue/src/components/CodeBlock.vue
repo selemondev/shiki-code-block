@@ -29,38 +29,51 @@ const props = defineProps<SingleThemeProps | MultiThemeProps>();
 const codeToHtml = ref("");
 
 watch(
-	() => props,
-	async (val) => {
+	[
+		() => props.code,
+		() => props.lang,
+		() => props.theme,
+		() => props.themes,
+		() => props.transformers,
+		() => props.defaultColor,
+		() => props.cssVariablePrefix,
+	],
+	async ([
+		code,
+		lang,
+		theme,
+		themes,
+		transformers,
+		defaultColor,
+		cssVariablePrefix,
+	]) => {
 		const baseOptions = {
-			transformers: val.transformers ?? [],
-			defaultColor: val.defaultColor,
-			cssVariablePrefix: val.cssVariablePrefix,
+			transformers: transformers ?? [],
+			defaultColor: defaultColor,
+			cssVariablePrefix: cssVariablePrefix,
 		};
 
 		let options: Options;
 
-		if (val.theme) {
+		if (theme) {
 			options = {
 				...baseOptions,
-				theme: val.theme,
+				theme,
+			};
+		} else if (themes) {
+			options = {
+				...baseOptions,
+				themes,
 			};
 		} else {
-			if (!val.themes) {
-				throw new Error("Either `theme` or `themes` must be provided");
+			if (import.meta.env.DEV) {
+				console.warn("Either `theme` or `themes` must be provided");
 			}
-
-			options = {
-				...baseOptions,
-				themes: val.themes,
-			};
+			return;
 		}
 
-		codeToHtml.value = await convertCodeToHtml(
-			val.code.trim(),
-			val.lang,
-			options,
-		);
+		codeToHtml.value = await convertCodeToHtml(code.trim(), lang, options);
 	},
-	{ immediate: true, deep: true },
+	{ immediate: true },
 );
 </script>
