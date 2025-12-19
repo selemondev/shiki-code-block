@@ -1,22 +1,16 @@
-import {
-	type BuiltinTheme,
-	type BundledLanguage,
-	codeToHtml,
-	type ShikiTransformer,
-} from "shiki";
-
+import { type BundledLanguage, codeToHtml, type ShikiTransformer } from "shiki";
+import type { ConvertOptions } from "../types/theme.interface.js";
 export async function convertCodeToHtml(
 	code: string,
 	lang: BundledLanguage,
-	theme: { light: BuiltinTheme; dark: BuiltinTheme },
-	transformers?: ShikiTransformer[],
+	options: ConvertOptions & {
+		transformers?: ShikiTransformer[];
+		defaultColor?: string;
+		cssVariablePrefix?: string;
+	},
 ) {
 	return await codeToHtml(code, {
 		lang,
-		themes: {
-			light: theme.light,
-			dark: theme.dark,
-		},
-		transformers,
+		...options,
 	});
 }

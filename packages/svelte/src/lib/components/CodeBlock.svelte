@@ -1,27 +1,67 @@
 <script lang="ts">
   import type { BuiltinTheme, BundledLanguage, ShikiTransformer } from "shiki";
   import { convertCodeToHtml } from "../utils/codeToHtml.js";
+  import type { ConvertOptions, Themes } from "../types/theme.interface.js";
 
+  type Options = ConvertOptions & {
+	defaultColor?: string;
+	cssVariablePrefix?: string;
+	transformers?: ShikiTransformer[];
+  };
+  type BaseProps = {
+	code: string;
+	lang: BundledLanguage;
+	defaultColor?: string;
+	cssVariablePrefix?: string;
+	transformers?: ShikiTransformer[];
+  };
+  type SingleThemeProps = BaseProps & {
+	theme: BuiltinTheme;
+	themes?: never;
+  };
+  type MultiThemeProps = BaseProps & {
+	themes: Themes;
+	theme?: never;
+  };
   let codeToHtml = $state("");
 
   let {
-    code,
-    lang,
-    theme,
-    transformers,
-  }: {
-    code: string;
-    lang: BundledLanguage;
-    theme: { light: BuiltinTheme; dark?: BuiltinTheme };
-    transformers?: ShikiTransformer[];
-  } = $props();
+        code,
+		lang,
+		theme,
+		themes,
+		transformers,
+		defaultColor,
+		cssVariablePrefix
+  }: SingleThemeProps | MultiThemeProps = $props();
 
   const handleConvertCodeToHTML = async () => {
+  		const baseOptions = {
+			transformers: transformers ?? [],
+			defaultColor,
+			cssVariablePrefix
+		};
+
+		let options: Options;
+
+		if (theme) {
+			options = {
+				...baseOptions,
+				theme,
+			};
+		} else if (themes) {
+			options = {
+				...baseOptions,
+				themes,
+			};
+		} else {
+			if (import.meta.env.DEV) {
+				console.warn("Either `theme` or `themes` must be provided");
+			}
+			return;
+		}
     return (codeToHtml = await convertCodeToHtml(
-      code?.trim(),
-      lang,
-      { light: theme.light, dark: theme.dark || "vitesse-dark" },
-      transformers || []
+      code.trim(), lang, options
     ));
   };
 
