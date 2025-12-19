@@ -1,6 +1,6 @@
 import { type BundledLanguage, codeToHtml, type ShikiTransformer } from "shiki";
 import type { ConvertOptions } from "@/types/theme.interface";
-export function convertCodeToHtml(
+export async function convertCodeToHtml(
 	code: string,
 	lang: BundledLanguage,
 	options: ConvertOptions & {
@@ -9,7 +9,7 @@ export function convertCodeToHtml(
 		cssVariablePrefix?: string;
 	},
 ) {
-	return codeToHtml(code, {
+	return await codeToHtml(code, {
 		lang,
 		...options,
 	});
