@@ -38,8 +38,8 @@
   const handleConvertCodeToHTML = async () => {
   		const baseOptions = {
 			transformers: transformers ?? [],
-			defaultColor: defaultColor,
-			cssVariablePrefix: cssVariablePrefix,
+			defaultColor,
+			cssVariablePrefix
 		};
 
 		let options: Options;
