@@ -1,57 +1,60 @@
-<script setup lang='ts'>
-import type { BuiltinTheme, BundledLanguage, ShikiTransformer } from "shiki";
+<script setup lang="ts">
+import type {
+  BuiltinTheme,
+  BundledLanguage,
+  ShikiTransformer,
+} from "shiki";
 import { ref, watch } from "vue";
 import { convertCodeToHtml } from "@/lib/utils/codeToHtml";
+import type { Themes } from "@/types/theme.interface";
 
-export interface Themes {
-  [key: string]: BuiltinTheme
-}
 const props = defineProps<{
-	code: string;
-	lang: BundledLanguage;
-	theme: Themes;
-    defaultColor?: string;
-    cssVariablePrefix?: string;
-	transformers?: ShikiTransformer[];
+  code: string;
+  lang: BundledLanguage;
+  theme?: BuiltinTheme;
+  themes?: Themes;
+  defaultColor?: string;
+  cssVariablePrefix?: string;
+  transformers?: ShikiTransformer[];
 }>();
 
 const codeToHtml = ref("");
-watch(
-	() => props,
-	async (val: {
-		code: string;
-		lang: BundledLanguage;
-		theme: Themes;
-        defaultColor?: string;
-        cssVariablePrefix?: string;
-		transformers?: ShikiTransformer[];
-	}) => {
-		if (val) {
-			codeToHtml.value = await convertCodeToHtml(
-				val.code?.trim(),
-				val.lang,
-				val.theme,
-				val.transformers || [],
-				val.defaultColor,
-				val.cssVariablePrefix
-			);
 
-			return codeToHtml.value;
-		}
-	},
-	{
-		immediate: true,
-	},
+watch(
+  () => props,
+  async (val) => {
+    const baseOptions = {
+      transformers: val.transformers ?? [],
+      defaultColor: val.defaultColor,
+      cssVariablePrefix: val.cssVariablePrefix,
+    };
+
+    let options;
+
+    if (val.theme) {
+      options = {
+        ...baseOptions,
+        theme: val.theme,
+      };
+    } else {
+      if (!val.themes) {
+        throw new Error(
+          "Either `theme` or `themes` must be provided"
+        );
+      }
+
+      options = {
+        ...baseOptions,
+        themes: val.themes,
+      };
+    }
+
+    codeToHtml.value = await convertCodeToHtml(
+      val.code.trim(),
+      val.lang,
+      options
+    );
+  },
+  { immediate: true }
 );
 </script>
-
-<template>
-  <div
-    class="shiki--code--block" role="region"
-    aria-labelledby="codeLabel"
-    tabindex="0"
-    aria-live="polite"
-    aria-roledescription="code block"
-    lang="en" v-html="codeToHtml"
-  />
-</template>
