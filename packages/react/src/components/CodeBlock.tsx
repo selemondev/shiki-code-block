@@ -64,9 +64,18 @@ function CodeBlock({
 				}
 				return;
 			}
-			const html = await convertCodeToHtml(code.trim(), lang, options);
-			if (!isCancelled) {
-				setCodeToHtml(html);
+			try {
+				const html = await convertCodeToHtml(code.trim(), lang, options);
+				if (!isCancelled) {
+					setCodeToHtml(html);
+				}
+			} catch (error) {
+				if (!isCancelled) {
+					if (import.meta.env.DEV) {
+						console.error("Failed to convert code to HTML:", error);
+					}
+					setCodeToHtml("");
+				}
 			}
 		};
 		handleConvertCodeToHTML();
