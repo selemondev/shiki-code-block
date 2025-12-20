@@ -1,42 +1,100 @@
 import { useEffect, useState } from "react";
 import type { BuiltinTheme, BundledLanguage, ShikiTransformer } from "shiki";
 import { convertCodeToHtml } from "@/lib/utils/codeToHtml";
+import type { ConvertOptions, Themes } from "@/types/theme.interface";
 
+type Options = ConvertOptions & {
+	defaultColor?: string;
+	cssVariablePrefix?: string;
+	transformers?: ShikiTransformer[];
+};
+type BaseProps = {
+	code: string;
+	lang: BundledLanguage;
+	defaultColor?: string;
+	cssVariablePrefix?: string;
+	transformers?: ShikiTransformer[];
+};
+type SingleThemeProps = BaseProps & {
+	theme: BuiltinTheme;
+	themes?: never;
+};
+type MultiThemeProps = BaseProps & {
+	themes: Themes;
+	theme?: never;
+};
 function CodeBlock({
 	code,
 	lang,
 	theme,
+	themes,
 	transformers,
-}: {
-	code: string;
-	lang: BundledLanguage;
-	theme: {
-		light: BuiltinTheme;
-		dark?: BuiltinTheme;
-	};
-	transformers?: ShikiTransformer[];
-}) {
+	defaultColor,
+	cssVariablePrefix,
+}: SingleThemeProps | MultiThemeProps) {
 	const [codeToHtml, setCodeToHtml] = useState("");
 
 	const setInnerHTML = () => {
 		return { __html: codeToHtml };
 	};
 	useEffect(() => {
+		let isCancelled = false;
 		const handleConvertCodeToHTML = async () => {
-			const codeToHtml = await convertCodeToHtml(
-				code?.trim(),
-				lang,
-				{ light: theme.light, dark: theme.dark || "vitesse-dark" },
-				transformers || [],
-			);
-			return setCodeToHtml(codeToHtml);
+			const baseOptions = {
+				transformers: transformers ?? [],
+				defaultColor,
+				cssVariablePrefix,
+			};
+
+			let options: Options;
+
+			if (theme) {
+				options = {
+					...baseOptions,
+					theme,
+				};
+			} else if (themes) {
+				options = {
+					...baseOptions,
+					themes,
+				};
+			} else {
+				if (import.meta.env.DEV) {
+					console.warn("Either `theme` or `themes` must be provided");
+				}
+				return;
+			}
+			try {
+				const html = await convertCodeToHtml(code.trim(), lang, options);
+				if (!isCancelled) {
+					setCodeToHtml(html);
+				}
+			} catch (error) {
+				if (!isCancelled) {
+					if (import.meta.env.DEV) {
+						console.error("Failed to convert code to HTML:", error);
+					}
+					setCodeToHtml("");
+				}
+			}
 		};
 		handleConvertCodeToHTML();
-	}, [code, lang, theme, transformers]);
+		return () => {
+			isCancelled = true;
+		};
+	}, [
+		code,
+		lang,
+		theme,
+		themes,
+		transformers,
+		defaultColor,
+		cssVariablePrefix,
+	]);
 	return (
 		<div
 			role="region"
-			aria-labelledby="codeLabel"
+			aria-label="Code block"
 			aria-live="polite"
 			aria-roledescription="code block"
 			lang="en"
