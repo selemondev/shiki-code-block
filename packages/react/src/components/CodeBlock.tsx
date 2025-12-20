@@ -38,6 +38,7 @@ function CodeBlock({
 		return { __html: codeToHtml };
 	};
 	useEffect(() => {
+		let isCancelled = false;
 		const handleConvertCodeToHTML = async () => {
 			const baseOptions = {
 				transformers: transformers ?? [],
@@ -63,9 +64,15 @@ function CodeBlock({
 				}
 				return;
 			}
-			return setCodeToHtml(await convertCodeToHtml(code.trim(), lang, options));
+			const html = await convertCodeToHtml(code.trim(), lang, options);
+			if (!isCancelled) {
+				setCodeToHtml(html);
+			}
 		};
 		handleConvertCodeToHTML();
+		return () => {
+			isCancelled = true;
+		};
 	}, [
 		code,
 		lang,
