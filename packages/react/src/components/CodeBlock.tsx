@@ -94,7 +94,7 @@ function CodeBlock({
 	return (
 		<div
 			role="region"
-			aria-labelledby="codeLabel"
+			aria-label="Code block"
 			aria-live="polite"
 			aria-roledescription="code block"
 			lang="en"
