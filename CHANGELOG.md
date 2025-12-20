@@ -1,6 +1,25 @@
 # Changelog
 
 
+## v1.0.11
+
+[compare changes](https://github.com/selemondev/shiki-code-block/compare/v1.1.0...v1.0.11)
+
+### 📖 Documentation
+
+- Update README.md file ([b1aee55](https://github.com/selemondev/shiki-code-block/commit/b1aee55))
+
+### 🏡 Chore
+
+- Release v1.1.0 ([0dca7c2](https://github.com/selemondev/shiki-code-block/commit/0dca7c2))
+- Release v1.1.0 ([be583a6](https://github.com/selemondev/shiki-code-block/commit/be583a6))
+- **react:** Update dependencies ([031252f](https://github.com/selemondev/shiki-code-block/commit/031252f))
+- Add lockfile ([0c8dc82](https://github.com/selemondev/shiki-code-block/commit/0c8dc82))
+
+### ❤️ Contributors
+
+- Selemondev <selemondev19@gmail.com>
+
 ## v1.0.10
 
 [compare changes](https://github.com/selemondev/shiki-code-block/compare/v1.0.9...v1.0.10)
