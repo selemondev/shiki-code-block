@@ -99,7 +99,7 @@ const code = `pnpm add shiki-block-svelte`
 <div style="display: grid; place-items: center; height: 100vh; width: 100vw">
   <CodeBlock
     lang="typescript"
-    theme={{
+    themes={{
       light: 'vitesse-light',
       dark: 'vitesse-dark',
     }}
@@ -164,7 +164,7 @@ const code = `pnpm add shiki-block-react`
 ```js
 <CodeBlock
   lang="bash"
-  theme={{
+  themes={{
     light: 'vitesse-light',
     dark: 'vitesse-dark',
   }}
@@ -229,7 +229,7 @@ const code = `pnpm add shiki-block-vue`
 
 ```js
 <div style="display: grid; place-items: center; height: 100vh; width: 100vw;">
-    <CodeBlock lang='typescript' :code="code" :theme="{
+    <CodeBlock lang='typescript' :code="code" :themes="{
       light: 'vitesse-light',
       dark: 'vitesse-dark'
     }" />
@@ -303,7 +303,7 @@ import { transformerCopyButton } from '@selemondev/shiki-transformer-copy-button
 
 ```js
 <div style="display: grid; place-items: center; height: 100vh; width: 100vw;">
-    <CodeBlock lang="typescript" :code="code" :theme="{
+    <CodeBlock lang="typescript" :code="code" :themes="{
       light: 'vitesse-light',
       dark: 'vitesse-dark'
     }" :transformers="[
