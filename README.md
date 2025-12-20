@@ -319,12 +319,19 @@ import { transformerCopyButton } from '@selemondev/shiki-transformer-copy-button
 
 ## Props
 
-| name          |     type      |       description         |
-|:-------------:|:-------------:|:-------------------------:|
-|  lang         | [BundledLanguage](https://shiki.style/languages) |  The language for the provided code. |
-|  code         | `string` |  The code snippet. |
-|  theme        | [BuiltinTheme](https://shiki.style/themes) |  A theme object with `light` and `dark` properties for dark and light mode support. |
-|  transformers | [ShikiTransformer[]](https://shiki.style/packages/transformers) |  Adds extra features on top of Shiki |
+| name | type | description |
+|:----:|:----:|:-----------:|
+| `lang` | [BundledLanguage](https://shiki.style/languages) | The language for the provided code snippet. |
+| `code` | `string` | The code snippet to highlight. |
+| `theme` | [BuiltinTheme](https://shiki.style/themes) | **Single theme mode.** Use one static theme. Mutually exclusive with `themes`. |
+| `themes` | `{ light: BuiltinTheme; dark: BuiltinTheme }` | **Multi-theme mode.** Enables light/dark theming using CSS variables. Mutually exclusive with `theme`. |
+| `defaultColor` | `"light" \| "dark"` | Initial active theme when using `themes`. Defaults to `"light"`. |
+| `cssVariablePrefix` | `string` | Prefix for generated CSS variables when using `themes`. Defaults to `"shiki"`. |
+| `transformers` | [ShikiTransformer[]](https://shiki.style/packages/transformers) | Adds extra features on top of Shiki. |
+
+- Use **either** `theme` **or** `themes`, never both.
+- `defaultColor` and `cssVariablePrefix` only apply when using `themes`.
+- The API enforces these rules at the type level.
 
 ## Credits go to this amazing project:
 
