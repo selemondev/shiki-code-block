@@ -77,3 +77,13 @@ watch(
 	{ immediate: true },
 );
 </script>
+<template>
+  <div
+    class="shiki--code--block" role="region"
+    aria-label="codeLabel"
+    tabindex="0"
+    aria-live="polite"
+    aria-roledescription="code block"
+    lang="en" v-html="codeToHtml"
+  />
+</template>
