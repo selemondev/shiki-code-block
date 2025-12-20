@@ -1,38 +1,80 @@
 import { useEffect, useState } from "react";
 import type { BuiltinTheme, BundledLanguage, ShikiTransformer } from "shiki";
 import { convertCodeToHtml } from "@/lib/utils/codeToHtml";
+import type { ConvertOptions, Themes } from "@/types/theme.interface";
 
+type Options = ConvertOptions & {
+	defaultColor?: string;
+	cssVariablePrefix?: string;
+	transformers?: ShikiTransformer[];
+};
+type BaseProps = {
+	code: string;
+	lang: BundledLanguage;
+	defaultColor?: string;
+	cssVariablePrefix?: string;
+	transformers?: ShikiTransformer[];
+};
+type SingleThemeProps = BaseProps & {
+	theme: BuiltinTheme;
+	themes?: never;
+};
+type MultiThemeProps = BaseProps & {
+	themes: Themes;
+	theme?: never;
+};
 function CodeBlock({
 	code,
 	lang,
 	theme,
+	themes,
 	transformers,
-}: {
-	code: string;
-	lang: BundledLanguage;
-	theme: {
-		light: BuiltinTheme;
-		dark?: BuiltinTheme;
-	};
-	transformers?: ShikiTransformer[];
-}) {
+	defaultColor,
+	cssVariablePrefix,
+}: SingleThemeProps | MultiThemeProps) {
 	const [codeToHtml, setCodeToHtml] = useState("");
 
 	const setInnerHTML = () => {
 		return { __html: codeToHtml };
 	};
-	useEffect(() => {
-		const handleConvertCodeToHTML = async () => {
-			const codeToHtml = await convertCodeToHtml(
-				code?.trim(),
-				lang,
-				{ light: theme.light, dark: theme.dark || "vitesse-dark" },
-				transformers || [],
-			);
-			return setCodeToHtml(codeToHtml);
+	const handleConvertCodeToHTML = async () => {
+		const baseOptions = {
+			transformers: transformers ?? [],
+			defaultColor,
+			cssVariablePrefix,
 		};
+
+		let options: Options;
+
+		if (theme) {
+			options = {
+				...baseOptions,
+				theme,
+			};
+		} else if (themes) {
+			options = {
+				...baseOptions,
+				themes,
+			};
+		} else {
+			if (import.meta.env.DEV) {
+				console.warn("Either `theme` or `themes` must be provided");
+			}
+			return;
+		}
+		return setCodeToHtml(await convertCodeToHtml(code.trim(), lang, options));
+	};
+	useEffect(() => {
 		handleConvertCodeToHTML();
-	}, [code, lang, theme, transformers]);
+	}, [
+		code,
+		lang,
+		theme,
+		themes,
+		transformers,
+		defaultColor,
+		cssVariablePrefix,
+	]);
 	return (
 		<div
 			role="region"
