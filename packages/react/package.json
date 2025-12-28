@@ -9,7 +9,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/selemondev/shiki-code-block"
+    "url": "git+https://github.com/selemondev/shiki-code-block.git"
   },
   "bugs": {
     "url": "https://github.com/selemondev/shiki-code-block/issues"
