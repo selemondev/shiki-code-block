@@ -2,6 +2,7 @@
 import type { BuiltinTheme, BundledLanguage, ShikiTransformer } from "shiki";
 import { ref, watch } from "vue";
 import { convertCodeToHtml } from "@/lib/utils/codeToHtml";
+import DOMPurify from "dompurify";
 import type { ConvertOptions, Themes } from "@/types/theme.interface";
 
 type Options = ConvertOptions & {
@@ -84,6 +85,6 @@ watch(
     tabindex="0"
     aria-live="polite"
     aria-roledescription="code block"
-    lang="en" v-html="codeToHtml"
+    lang="en" v-html="DOMPurify.sanitize(codeToHtml)"
   />
 </template>
