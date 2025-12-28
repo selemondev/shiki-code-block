@@ -59,5 +59,8 @@
     "shiki": "^3.12.2",
     "svelte": "^5.38.8",
     "svelte-check": "^4.3.1"
+  },
+  "dependencies": {
+    "dompurify": "^3.3.1"
   }
 }

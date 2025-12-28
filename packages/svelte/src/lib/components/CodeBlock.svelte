@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { BuiltinTheme, BundledLanguage, ShikiTransformer } from "shiki";
   import { convertCodeToHtml } from "../utils/codeToHtml.js";
+  import DOMPurify from "dompurify";
   import type { ConvertOptions, Themes } from "../types/theme.interface.js";
 
   type Options = ConvertOptions & {
@@ -60,9 +61,9 @@
 			}
 			return;
 		}
-    return (codeToHtml = await convertCodeToHtml(
+    return (codeToHtml = DOMPurify.sanitize(await convertCodeToHtml(
       code.trim(), lang, options
-    ));
+    )));
   };
 
   $effect(() => {
