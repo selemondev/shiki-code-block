@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.1.2",
   "private": false,
-  "packageManager": "pnpm@9.15.2+sha512.93e57b0126f0df74ce6bff29680394c0ba54ec47246b9cf321f0121d8d9bb03f750a705f24edc3c1180853afd7c2c3b94196d0a3d53d3e069d9e2793ef11f321",
+  "packageManager": "pnpm@9.15.9",
   "description": "A Shiki based Vue Code Block Component ✨",
   "author": "Selemondev",
   "license": "MIT",
@@ -39,12 +39,12 @@
     "vue-tsc": "^2.2.0 || ^3.0.6"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^6.0.1",
+    "@vitejs/plugin-vue": "^6.0.3",
     "@vue/tsconfig": "^0.8.1",
-    "shiki": "^3.12.2",
-    "tsdown": "^0.17.3",
-    "unplugin-vue": "^7.0.1",
-    "vue-tsc": "^3.1.8"
+    "shiki": "^3.20.0",
+    "tsdown": "^0.18.3",
+    "unplugin-vue": "^7.1.0",
+    "vue-tsc": "^3.2.1"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
