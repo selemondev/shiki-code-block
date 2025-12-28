@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { BuiltinTheme, BundledLanguage, ShikiTransformer } from "shiki";
 import { convertCodeToHtml } from "@/lib/utils/codeToHtml";
+import DOMPurify from 'dompurify';
 import type { ConvertOptions, Themes } from "@/types/theme.interface";
 
 type Options = ConvertOptions & {
@@ -34,9 +35,6 @@ function CodeBlock({
 }: SingleThemeProps | MultiThemeProps) {
 	const [codeToHtml, setCodeToHtml] = useState("");
 
-	const setInnerHTML = () => {
-		return { __html: codeToHtml };
-	};
 	useEffect(() => {
 		let isCancelled = false;
 		const handleConvertCodeToHTML = async () => {
@@ -99,7 +97,7 @@ function CodeBlock({
 			aria-roledescription="code block"
 			lang="en"
 			className="shiki--code--block"
-			dangerouslySetInnerHTML={setInnerHTML()}
+			dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(codeToHtml)}}
 		/>
 	);
 }

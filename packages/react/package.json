@@ -54,5 +54,8 @@
   "exports": {
     ".": "./dist/index.js",
     "./package.json": "./package.json"
+  },
+  "dependencies": {
+    "dompurify": "^3.3.1"
   }
 }
