@@ -50,6 +50,10 @@ importers:
         version: 0.15.12(publint@0.3.12)(typescript@5.9.3)(unrun@0.2.19)(vue-tsc@3.1.8(typescript@5.9.3))
 
   packages/svelte:
+    dependencies:
+      dompurify:
+        specifier: ^3.3.1
+        version: 3.3.1
     devDependencies:
       '@sveltejs/adapter-auto':
         specifier: ^4.0.0
@@ -78,6 +82,9 @@ importers:
 
   packages/vue:
     dependencies:
+      dompurify:
+        specifier: ^3.3.1
+        version: 3.3.1
       vite:
         specifier: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
         version: 7.2.7(@types/node@22.19.3)(jiti@2.5.1)
