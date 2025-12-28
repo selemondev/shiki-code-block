@@ -1,6 +1,20 @@
 # Changelog
 
 
+## v2.0.2
+
+[compare changes](https://github.com/selemondev/shiki-code-block/compare/v1.1.2...v2.0.2)
+
+### 🏡 Chore
+
+- Release v1.1.1 ([9ad8d58](https://github.com/selemondev/shiki-code-block/commit/9ad8d58))
+- Release v1.1.1 ([8c916d1](https://github.com/selemondev/shiki-code-block/commit/8c916d1))
+- Normalize repository url ([12d72ae](https://github.com/selemondev/shiki-code-block/commit/12d72ae))
+
+### ❤️ Contributors
+
+- Selemondev <selemondev19@gmail.com>
+
 ## v2.0.1
 
 [compare changes](https://github.com/selemondev/shiki-code-block/compare/v1.1.0...v2.0.1)
