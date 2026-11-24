@@ -336,3 +336,7 @@ import { transformerCopyButton } from '@selemondev/shiki-transformer-copy-button
 ## Credits go to this amazing project:
 
 - [Shiki](https://shiki.style/) - A beautiful yet powerful syntax highlighter.
+
+## License
+
+[MIT](./LICENSE) © [Selemon Brahanu](https://selemon.dev)
